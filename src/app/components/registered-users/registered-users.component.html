@@ -1,0 +1,111 @@
+<div class=" py-4" *ngIf="(registeredUsersState$ | async) as users">
+  <div class="row">
+      <div class="col-12" *ngIf="users && users.length; else emptyTemp">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Firstname</th>
+                  <th scope="col">Lastname</th>
+                  <th scope="col">Company</th>
+                  <th scope="col">Phone</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Language</th>
+                  <th scope="col">Disclaimer</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let user of users; let i = index">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{user.firstName}}</td>
+                      <td>{{user.lastName}}</td>
+                      <td>{{user.company}}</td>
+                      <td>{{user.phone}}</td>
+                      <td>{{user.emailAddress}}</td>
+                      <td>{{user.city}}, {{user.state}}, {{user.country}} {{user.zipCode}}</td>
+                      <td>{{user.languageCode}}</td>
+                      <td class="text-center">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" disabled [checked]="user.disclaimerAccepted"  id="'disclaimer'+i">
+                          <label class="form-check-label" for="'disclaimer'+i">
+                          </label>
+                        </div>
+                      </td>
+                  </tr>
+              </tbody>
+            </table>
+      </div>
+      <ng-template #emptyTemp>
+        <div class="col-12">
+          <h3 class="text-center">No data Found!</h3>
+        </div>
+      </ng-template>
+  </div>
+</div>
+
+
+<hr>
+<div *ngIf="!showRegisteredMatTable">
+<button (click)="getRegisteredUserDataMatTable()">Get the same 'Registered Users Data' in a Mat Table from Angular Material</button>
+</div>
+<div *ngIf="showRegisteredMatTable">
+  <h2>'Registered User Data' in a Mat Table from Angular Material
+    <button class="btn btn-primary float-right" (click)="showRegisteredMatTable = false">Hide Registered Users in Mat Table</button>
+  </h2>
+
+  <table mat-table [dataSource]="dataSource2" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Company </th>
+      <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+    </ng-container>
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+      <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="emailAddress">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.emailAddress}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+      <td mat-cell *matCellDef="let element"> {{element.city + ' ' + element.state + ' ' + element.country + ' ' + element.zipCode}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="languageCode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Language </th>
+      <td mat-cell *matCellDef="let element"> {{element.languageCode}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="disclaimerAccepted">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Disclaimer </th>
+      <td mat-cell *matCellDef="let element"> {{element.disclaimerAccepted}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+  </div>
+
+
+
+<hr>

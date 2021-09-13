@@ -1,0 +1,32 @@
+<div class=" py-4" *ngIf="(unregisteredUsersState$ | async) as users">
+  <div class="row">
+      <div class="col-12" *ngIf="users && users.length;else emptyTemp">
+          <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Language</th>
+                  <th scope="col">Registration Id</th>
+                  <th scope="col">Registration Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let user of users; let i = index">
+                      <th scope="row">{{i+1}}</th>
+                      <td>{{user.emailAddress}}</td>
+                      <td>{{user.languageCode}}</td>
+                      <td>{{user.registrationId}}</td>
+                      <td>{{user.registrationIdGeneratedTime | date :'MM/dd/yyyy hh:mm a'}}</td>
+                  </tr>
+              </tbody>
+            </table>
+      </div>
+      <ng-template #emptyTemp>
+        <div class="col-12">
+          <h3 class="text-center">No data Found!</h3>
+        </div>
+      </ng-template>
+  </div>
+</div>
+
