@@ -9,9 +9,11 @@ Steps to run this repo/task locally:
 
 
 
+Steps to run unit test cases:
 
-
-
+1. Run this command in the IDE terminal: ng test --code-coverage
+2. Open this URL in your browser to check the unit test cases: http://localhost:9876/
+3. Now open the index.html file under the coverage folder in the browser to see the code coverage (repo/coverage/AngNgrx/index.html file)
 
 
 ----------------------------------------------------------------------------------------------

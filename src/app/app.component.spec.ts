@@ -1,8 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 import { AppComponent } from './app.component';
+import { UserFacade } from './store/user.facade';
 
 describe('AppComponent', () => {
+  let userFacade: any = jasmine.createSpyObj('UserFacade', [ 'dispatchGetUsers' ]);
+  userFacade.dispatchGetUsers.and.returnValue(of({}))
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -11,6 +15,7 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent
       ],
+      providers: [{provide: UserFacade, useValue: userFacade}]
     }).compileComponents();
   });
 
@@ -23,13 +28,8 @@ describe('AppComponent', () => {
   it(`should have as title 'AngNgrx'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('AngNgrx');
+    app.ngOnInit();
+    expect(userFacade.dispatchGetUsers).toHaveBeenCalledTimes(1);
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('AngNgrx app is running!');
-  });
 });

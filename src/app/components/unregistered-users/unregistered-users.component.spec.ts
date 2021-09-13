@@ -1,14 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UserFacade } from 'src/app/store/user.facade';
 
 import { UnregisteredUsersComponent } from './unregistered-users.component';
 
 describe('UnregisteredUsersComponent', () => {
   let component: UnregisteredUsersComponent;
   let fixture: ComponentFixture<UnregisteredUsersComponent>;
-
+  let userFacade: any;
   beforeEach(async () => {
+    userFacade = {};
     await TestBed.configureTestingModule({
-      declarations: [ UnregisteredUsersComponent ]
+      declarations: [ UnregisteredUsersComponent ],
+      providers: [{provide: UserFacade, useValue: userFacade}]
     })
     .compileComponents();
   });
